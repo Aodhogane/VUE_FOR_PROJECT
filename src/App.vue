@@ -1,27 +1,21 @@
 <template>
     <div id="app">
-      <nav>
-        <router-link to="/">Главная</router-link>
-        <router-link to="/about">О нас</router-link>
-        <router-link to="/contact">Контакты</router-link>
-      </nav>
-      <router-view></router-view> <!-- Здесь будут отображаться компоненты -->
+      <header>
+        <h1>My Vue.js Application</h1>
+        <nav>
+          <router-link to="/">Home</router-link>
+          <router-link to="/about">About</router-link>
+          <router-link to="/contact">Contact</router-link>
+        </nav>
+      </header>
+  
+      <main>
+        <router-view></router-view>
+      </main>
+  
+      <footer>
+        <p>&copy; 2024 My Vue.js Application</p>
+      </footer>
     </div>
   </template>
-  
-  <script>
-  export default {
-    name: 'App'
-  };
-  </script>
-  
-  <style>
-  nav {
-    padding: 10px;
-    background-color: #f4f4f4;
-  }
-  nav a {
-    margin-right: 10px;
-  }
-  </style>
   

@@ -1,40 +1,46 @@
 const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // Импортируй плагин
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/main.js', // Точка входа
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: 'bundle.js', // Убедись, что это имя совпадает с тем, что указано в index.html
+    path: path.resolve(__dirname, 'dist'), // Папка, в которую будет помещен собранный файл
+    publicPath: '/', // Это важно для работы Vue Router в режиме history
+  },
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
   },
   module: {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
       },
       {
         test: /\.js$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
-        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
-  },
-  resolve: {
-    alias: {
-      vue$: 'vue/dist/vue.esm-browser.js'
-    },
-    extensions: ['*', '.js', '.vue', '.json']
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   plugins: [
-    new (require('vue-loader/lib/plugin'))()
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+        template: './public/index.html', // Путь к исходному шаблону
+        filename: 'index.html', // Имя выходного файла
+        inject: true, // Вставляет bundle в файл
+    }),
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    historyApiFallback: true,
+    static: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000
-  }
+    port: 9000,
+},
 };
