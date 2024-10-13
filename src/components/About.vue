@@ -1,7 +1,7 @@
 <template>
     <div>
-      <h2>About Page</h2>
-      <p>This is the About page.</p>
+      <h2>Помощь</h2>
+      <p>Тут вас ждёт Помощь</p>
     </div>
   </template>
   

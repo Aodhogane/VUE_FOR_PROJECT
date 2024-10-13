@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>Welcome to the Home Page</h1>
+      <h1>Для бизнеса</h1>
     </div>
   </template>
   
@@ -9,4 +9,8 @@
     name: 'Home'
   };
   </script>
+
+<style>
+/* стили для Home */
+</style>
   

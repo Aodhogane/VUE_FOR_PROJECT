@@ -16,6 +16,7 @@
     "@vue/compiler-sfc": "^3.2.13",
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
     "style-loader": "^4.0.0",
     "vue-loader": "^17.3.1",
@@ -26,6 +27,7 @@
   },
   "dependencies": {
     "vue": "^3.2.13",
+    "vue_for_project-1": "file:",
     "vue-router": "^4.4.5"
   }
 }

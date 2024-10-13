@@ -1,7 +1,7 @@
 <template>
     <div>
-      <h2>Contact Page</h2>
-      <p>This is the Contact page.</p>
+      <h2>Карьера</h2>
+      <p>Добро пожаловать в карьеру</p>
     </div>
   </template>
   
