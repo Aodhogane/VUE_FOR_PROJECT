@@ -9,7 +9,7 @@
           <router-link to="/contact">Каталог</router-link>
           <router-link to="/contact">Польза</router-link>
           <router-link to="/favourites">
-            <img src="./assets/Star_1.png" alt="Избранное" class="image" />
+            <img src="./assets/star1.png" alt="Избранное" class="image" />
           </router-link>
           
           <router-link to="/basket">
