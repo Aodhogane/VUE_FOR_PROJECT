@@ -1,10 +1,9 @@
 <template>
   <div>
     <div class="search-bar-container">
-
       <div class="location-container">
-        <button class="menu-button" @click="handleMenuClick">
-          <img :src="burgerMenuIcon" alt="Категории" class="menu-icon" />
+        <button class="menu-button" @click="toggleCategories">
+          <img :src="menuIcon" alt="Категории" class="menu-icon" />
           Категории
         </button>
       </div>
@@ -18,17 +17,23 @@
         <span>г. Москва</span>
         <img src="../assets/map.png" alt="Локация" class="location-icon">
       </div>
-
     </div>
 
-    <div class="category-buttons-container">
-      <button class="category-button">Камеры</button>
-      <button class="category-button">Объективы</button>
-      <button class="category-button">Провода</button>
-      <button class="category-button">Наборы</button>
-      <button class="category-button">Лампы</button>
-      <button class="category-button">Батарейки</button>
-      <button class="category-button">Фотобоксы</button>
+    <div v-if="showCategoriesModal" class="categories-modal">
+      <div class="modal-content">
+        <span class="close" @click="toggleCategories">&times;</span>
+        <h2>Категории</h2>
+        <p>Выберите одну из категорий ниже:</p>
+        <div class="category-buttons-container">
+          <button class="category-button">Камеры</button>
+          <button class="category-button">Объективы</button>
+          <button class="category-button">Провода</button>
+          <button class="category-button">Наборы</button>
+          <button class="category-button">Лампы</button>
+          <button class="category-button">Батарейки</button>
+          <button class="category-button">Фотобоксы</button>
+        </div>
+      </div>
     </div>
 
     <h1>Ваши рекомендации:</h1>
@@ -54,7 +59,8 @@
 
 <script>
 import Card from './Card.vue'; // Импортируем компонент Card
-import burgerMenuIcon from '../assets/burger-menu.png'; // Исправлено расширение на .png
+import burgerMenuIcon from '../assets/burger-menu.png'; // Иконка меню
+import closeIcon from '../assets/close.png'; // Иконка закрытия
 
 export default {
   name: 'Home',
@@ -63,13 +69,18 @@ export default {
   },
   data() {
     return {
-      burgerMenuIcon, // Добавляем иконку меню в data
+      menuIcon: burgerMenuIcon, // Иконка меню
+      showCategoriesModal: false, // Флаг для показа модального окна
     };
+  },
+  methods: {
+    toggleCategories() {
+      this.showCategoriesModal = !this.showCategoriesModal; // Переключаем флаг
+      this.menuIcon = this.showCategoriesModal ? closeIcon : burgerMenuIcon; // Меняем иконку
+    },
   },
 };
 </script>
-
-
 
 <style>
 .card-container {
@@ -155,5 +166,34 @@ export default {
   font-size: 16px;
 }
 
+/* Стили для модального окна */
+.categories-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+  position: relative; /* Для позиционирования кнопки закрытия */
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
 
 </style>

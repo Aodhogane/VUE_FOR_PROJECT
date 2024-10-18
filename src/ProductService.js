@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const API_URL = 'http://your-api-url.com/api/products'; //Заменить на наш API
+const API_URL = 'http://your-api-url.com/api/products'; //Изменить на нащ API
 
 export default {
   async fetchProducts() {

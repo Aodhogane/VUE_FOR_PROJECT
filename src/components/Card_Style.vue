@@ -1,3 +1,4 @@
+
 <template>
     <div class="card">
       <img :src="imageUrl" alt="Изображение товара" class="card-image" />
@@ -52,4 +53,3 @@
     /* Добавьте стиль для кнопки */
   }
   </style>
-  
