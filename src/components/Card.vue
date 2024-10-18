@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ProductService from '../services/ProductService';
+import ProductService from '../ProductService.js';
 import Card from './Card.vue';
 
 export default {
