@@ -1,77 +1,45 @@
 <template>
-  <div class="card" @click="goToProductPage">
-    <img :src="starImage" alt="Звезда" class="star-icon" />
-    <h2>{{ title }}</h2>
-    <p>{{ price }}₽</p>
-    <p>{{ location }}</p>
-    <button class="rent-button" @click="goToProductPage">Арендовать</button>
+  <div class="product-list">
+    <Card
+      v-for="product in products"
+      :key="product.id"
+      :id="product.id"
+      :title="product.title"
+      :price="product.price"
+      :location="product.location"
+      :imageUrl="product.imageUrl"
+    />
   </div>
 </template>
 
 <script>
-import starImage from '../assets/Star_1.png';
+import ProductService from '../services/ProductService';
+import Card from './Card.vue';
 
 export default {
-  name: 'Card',
-  props: {
-    id: {
-      type: Number,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    location: {
-      type: String,
-      required: true,
-    },
+  name: 'ProductList',
+  components: {
+    Card,
   },
   data() {
     return {
-      starImage,
+      products: [],
     };
   },
-  methods: {
-    goToProductPage() {
-      this.$router.push({ name: 'ProductDetail', params: { id: this.id } });
-    },
+  async created() {
+    try {
+      this.products = await ProductService.fetchProducts();
+    } catch (error) {
+      console.error('Ошибка при загрузке продуктов:', error);
+    }
   },
 };
 </script>
 
 <style>
-.card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  width: 200px;
-  text-align: center;
-  position: relative;
-}
-
-.star-icon {
-  width: 24px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  animation: bounce 1s infinite; /* Пример анимации */
-}
-
-.rent-button {
-  background-color: #ff4747; /* Цвет кнопки */
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.rent-button:hover {
-  background-color: #e04040; /* Цвет при наведении */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Расстояние между карточками */
 }
 </style>
