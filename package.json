@@ -26,6 +26,7 @@
     "webpack-dev-server": "^5.1.0"
   },
   "dependencies": {
+    "axios": "^1.7.7",
     "vue": "^3.2.13",
     "vue_for_project-1": "file:",
     "vue-router": "^4.4.5"
