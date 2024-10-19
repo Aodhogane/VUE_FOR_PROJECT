@@ -1,76 +1,71 @@
 <template>
-    <div id="app">
-      <header class = "dark-header">
-        <h1>My Vue.js Application</h1>
-        <nav>
-          <router-link to="/">Для бизнеса</router-link>
-          <router-link to="/contact">Карьера</router-link>
-          <router-link to="/about">Помощь</router-link>
-          <router-link to="/contact">Каталог</router-link>
-          <router-link to="/contact">Польза</router-link>
-          <router-link to="/favourites">
-            <img src="./assets/Star_1.png" alt="Избранное" class="image" />
-          </router-link>
-          
-          <router-link to="/basket">
-            <img src="./assets/Basket.png" alt="Корзина" class="image" />
-          </router-link>
-          
-          <router-link to="/Message">
-            <img src="./assets/message.png" alt="Сообщение" class="image" />
-          </router-link>
+  <div id="app">
+    <header class="dark-header">
+      <nav>
+        <router-link to="/">Для бизнеса</router-link>
+        <router-link to="/contact">Карьера</router-link>
+        <router-link to="/about">Помощь</router-link>
+        <router-link to="/catalog">Каталог</router-link>
+        <router-link to="/benefits">Польза</router-link>
+        <router-link to="/favourites">
+          <img src="./assets/Star_1.png" alt="Избранное" class="image" />
+        </router-link>
+        <router-link to="/basket">
+          <img src="./assets/Basket.png" alt="Корзина" class="image" />
+        </router-link>
+        <router-link to="/message">
+          <img src="./assets/message.png" alt="Сообщение" class="image" />
+        </router-link>
+        <router-link to="/tovar">Разместить товар</router-link>
+        <router-link to="/account">
+          <img src="./assets/account-svgrepo-com.png" alt="Аккаунт" class="image" />
+        </router-link>
+      </nav>
+    </header>
 
-          <router-link to="/tovar"> Разместить товар</router-link>
+    <main>
+      <router-view></router-view>
+    </main>
 
-          <router-link to="/favourites">
-            <img src="./assets/account-svgrepo-com.png" alt="Аккаунт" class="image" />
-          </router-link>
+    <footer class="footer">
+      <div class="footer-links">
+        <div class="column">
+          <p>Для бизнеса</p>
+          <p>Карьера</p>
+          <p>Помощь</p>
+          <p>Каталоги</p>
+          <p>Польза</p>
+        </div>
+        <div class="column">
+          <p>Избранное</p>
+          <p>Корзина</p>
+          <p>Диалоги</p>
+        </div>
+        <div class="column">
+          <p>Контакты</p>
+          <p>Связь</p>
+        </div>
+      </div>
+      <div class="footer-icons">
+        <img src="./assets/vk-svgrepo-com.png" alt="VK">
+        <img src="./assets/TG.png" alt="Telegram">
+        <img src="./assets/TG.png" alt="WhatsApp">
+      </div>
+    </footer>
+  </div>
+</template>
 
-        </nav>
-      </header>
-  
-      <main>
-        <router-view></router-view>
-      </main>
-  
-      <footer class="dark-footer">       
-          <router-link to="/"> Для бизнеса</router-link>
+<script>
+export default {
+  name: 'App',
+};
+</script>
 
-          <router-link to="/"> Карьера</router-link>
-
-          <router-link to="/"> Помощь</router-link>
-
-          <router-link to="/"> Каталоги</router-link>
-
-          <router-link to="/"> Польза</router-link>
-
-          <router-link to="/"> Избранное</router-link>
-
-          <router-link to="/"> Корзина</router-link>
-
-          <router-link to="/"> Диалоги</router-link>
-
-          <router-link to="/"> Контакты</router-link>
-
-          <router-link to="/"> Связь</router-link>
-
-          <router-link to="/VK">
-            <img src="./assets/vk-svgrepo-com.png" alt="Аккаунт" class="image" />
-          </router-link>
-
-          <router-link to="/TG">
-            <img src="./assets/TG.png" alt="Сообщение" class="image" />
-          </router-link>
-      </footer>
-    </div>
-  </template>
-  
-  <style>
-  .dark-header {
+<style>
+.dark-header {
   background-color: #333;
   color: white; 
   padding: 20px; 
-  
 }
 
 .dark-header nav {
@@ -87,23 +82,33 @@
   text-decoration: underline; 
 }
 
-.dark-footer {
-  background-color: #333;
-  color: white; 
-  padding: 20px; 
-}
-
-.dark-footer nav {
+.footer {
   display: flex;
-  gap: 20px; 
+  justify-content: space-between;
+  background-color: #404040; /* Dark gray background color */
+  padding: 20px;
+  color: #f0f0f0; /* Light gray text color */
 }
 
-.dark-footer a {
-  color: white;
-  text-decoration: none; 
+.footer-links {
+  display: flex;
+  gap: 50px;
 }
 
-.dark-footer a:hover {
-  text-decoration: underline; 
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-icons img {
+  width: 32px; /* Adjust the size of the icons as needed */
+  height: 32px;
 }
 </style>
