@@ -1,68 +1,72 @@
 <template>
-  <div id="app">
-    <header class="dark-header">
-      <nav>
-        <router-link to="/">Для бизнеса</router-link>
-        <router-link to="/contact">Карьера</router-link>
-        <router-link to="/about">Помощь</router-link>
-        <router-link to="/catalog">Каталог</router-link>
-        <router-link to="/benefits">Польза</router-link>
-        <router-link to="/favourites">
-          <img src="./assets/Star_1.png" alt="Избранное" class="image" />
-        </router-link>
-        <router-link to="/basket">
-          <img src="./assets/Basket.png" alt="Корзина" class="image" />
-        </router-link>
-        <router-link to="/message">
-          <img src="./assets/message.png" alt="Сообщение" class="image" />
-        </router-link>
-        <router-link to="/tovar">Разместить товар</router-link>
-        <router-link to="/account">
-          <img src="./assets/account-svgrepo-com.png" alt="Аккаунт" class="image" />
-        </router-link>
-      </nav>
-    </header>
+    <div id="app">
+      <header class = "dark-header">
+        <h1>My Vue.js Application</h1>
+        <nav>
+          <router-link to="/">Для бизнеса</router-link>
+          <router-link to="/contact">Карьера</router-link>
+          <router-link to="/about">Помощь</router-link>
+          <router-link to="/contact">Каталог</router-link>
+          <router-link to="/contact">Польза</router-link>
+          <router-link to="/favourites">
+            <img src="./assets/Star_1.png" alt="Избранное" class="image" />
+          </router-link>
+          
+          <router-link to="/basket">
+            <img src="./assets/Basket.png" alt="Корзина" class="image" />
+          </router-link>
+          
+          <router-link to="/Message">
+            <img src="./assets/message.png" alt="Сообщение" class="image" />
+          </router-link>
 
-    <main>
-      <router-view></router-view>
-    </main>
+          <router-link to="/tovar"> Разместить товар</router-link>
 
-    <footer class="footer">
-      <div class="footer-links">
-        <div class="column">
-          <p>Для бизнеса</p>
-          <p>Карьера</p>
-          <p>Помощь</p>
-          <p>Каталоги</p>
-          <p>Польза</p>
-        </div>
-        <div class="column">
-          <p>Избранное</p>
-          <p>Корзина</p>
-          <p>Диалоги</p>
-        </div>
-        <div class="column">
-          <p>Контакты</p>
-          <p>Связь</p>
-        </div>
-      </div>
-      <div class="footer-icons">
-        <img src="./assets/vk-svgrepo-com.png" alt="VK">
-        <img src="./assets/TG.png" alt="Telegram">
-        <img src="./assets/TG.png" alt="WhatsApp">
-      </div>
-    </footer>
-  </div>
-</template>
+          <router-link to="/favourites">
+            <img src="./assets/account-svgrepo-com.png" alt="Аккаунт" class="image" />
+          </router-link>
 
-<script>
-export default {
-  name: 'App',
-};
-</script>
+        </nav>
+      </header>
+  
+      <main>
+        <router-view></router-view>
+      </main>
+  
+      <footer class="dark-footer">       
+          <router-link to="/"> Для бизнеса</router-link>
 
-<style>
-.dark-header {
+          <router-link to="/"> Карьера</router-link>
+
+          <router-link to="/"> Помощь</router-link>
+
+          <router-link to="/"> Каталоги</router-link>
+
+          <router-link to="/"> Польза</router-link>
+
+          <router-link to="/"> Избранное</router-link>
+
+          <router-link to="/"> Корзина</router-link>
+
+          <router-link to="/"> Диалоги</router-link>
+
+          <router-link to="/"> Контакты</router-link>
+
+          <router-link to="/"> Связь</router-link>
+
+          <router-link to="/VK">
+            <img src="./assets/vk-svgrepo-com.png" alt="Аккаунт" class="image" />
+          </router-link>
+
+          <router-link to="/TG">
+            <img src="./assets/TG.png" alt="Сообщение" class="image" />
+          </router-link>
+      </footer>
+    </div>
+  </template>
+  
+  <style>
+  .dark-header {
   background-color: #333;
   color: white; 
   padding: 20px; 
