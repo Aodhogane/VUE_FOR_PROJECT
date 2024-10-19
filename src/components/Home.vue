@@ -58,28 +58,6 @@
 </template>
 
 <script>
-import Card from './Card.vue'; // Импортируем компонент Card
-import burgerMenuIcon from '../assets/burger-menu.png'; // Иконка меню
-import closeIcon from '../assets/close.png'; // Иконка закрытия
-
-export default {
-  name: 'Home',
-  components: {
-    Card, // Регистрируем компонент Card
-  },
-  data() {
-    return {
-      menuIcon: burgerMenuIcon, // Иконка меню
-      showCategoriesModal: false, // Флаг для показа модального окна
-    };
-  },
-  methods: {
-    toggleCategories() {
-      this.showCategoriesModal = !this.showCategoriesModal; // Переключаем флаг
-      this.menuIcon = this.showCategoriesModal ? closeIcon : burgerMenuIcon; // Меняем иконку
-    },
-  },
-};
 </script>
 
 <style>

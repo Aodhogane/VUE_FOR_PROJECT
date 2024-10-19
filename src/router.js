@@ -18,12 +18,6 @@ const routes = [
     path: '/contact',
     name: 'Contact',
     component: Contact
-  },
-  {
-    path: '/product/:id',
-    name: 'ProductDetail',
-    component: () => import('./components/ProductDetail.vue'),
-    props: true
   }
 ];
 
