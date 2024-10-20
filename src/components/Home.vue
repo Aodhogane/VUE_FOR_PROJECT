@@ -43,6 +43,16 @@
     </div>
 
     <h1>Все товары:</h1>
+
+    <!-- Контейнер для карточек товаров -->
+    <div class="card-container">
+      <div class="product-card" v-for="product in products" :key="product.id">
+        <img :src="product.image" alt="Продукт" class="product-image" />
+        <h3>{{ product.name }}</h3>
+        <p>Цена: {{ product.price }}₽</p>
+        <button class="add-to-cart-button">Добавить в корзину</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -52,10 +62,18 @@ export default {
     return {
       showCategoriesModal: false,
       selectedCity: 'Ваш город', // Начальный город
+      products: [ // Пример списка продуктов
+        { id: 1, name: 'Камера 1', price: 5000, image: require('../assets/camera1.png') },
+        { id: 2, name: 'Камера 2', price: 7000, image: require('../assets/camera1.png') },
+        { id: 3, name: 'Камера 3', price: 8000, image: require('../assets/camera1.png') },
+        { id: 4, name: 'Камера 4', price: 6000, image: require('../assets/camera1.png') },
+        { id: 5, name: 'Камера 5', price: 4500, image: require('../assets/camera1.png') },
+        { id: 6, name: 'Камера 6', price: 5500, image: require('../assets/camera1.png') },
+        // Добавьте больше продуктов по мере необходимости
+      ],
     };
   },
   mounted() {
-    // Автоматически выбираем город при загрузке компонента
     this.autoSelectLocation();
   },
   computed: {
@@ -76,11 +94,10 @@ export default {
           const longitude = position.coords.longitude;
           this.getLocationName(latitude, longitude);
         }, () => {
-          // Если геолокация недоступна, устанавливаем значение по умолчанию
           this.selectedCity = 'Ваш город'; 
         });
       } else {
-        this.selectedCity = 'Ваш город'; // Геолокация не поддерживается
+        this.selectedCity = 'Ваш город'; 
       }
     },
     getLocationName(latitude, longitude) {
@@ -92,12 +109,12 @@ export default {
           if (data && data.address) {
             this.selectedCity = data.address.city || data.address.town || data.address.village || 'Неизвестный город';
           } else {
-            this.selectedCity = 'Ваш город'; // Если город не найден
+            this.selectedCity = 'Ваш город';
           }
         })
         .catch(error => {
           console.error('Ошибка при получении данных:', error);
-          this.selectedCity = 'Ваш город'; // Если произошла ошибка
+          this.selectedCity = 'Ваш город';
         });
     },
   },
@@ -233,4 +250,27 @@ export default {
   text-overflow: ellipsis; /* Добавление "..." в конце текста */
   max-width: 100px; /* Ограничение ширины */
 }
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap; /* Позволяет карточкам переноситься на новую строку */
+  justify-content: space-between; /* Распределяет карточки по строке */
+  margin-top: 20px;
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+  width: calc(30% - 20px); /* Устанавливает ширину карточки */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.product-image {
+  width: 100%; /* Масштабируем изображение по ширине карточки */
+  height: auto; /* Сохраняем пропорции изображения */
+}
+
 </style>
