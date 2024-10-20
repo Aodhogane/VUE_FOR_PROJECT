@@ -5,9 +5,9 @@
         <button class="menu-button" @click="toggleCategories">
           <div class="menu-icon-container">
             <img 
-            :src="showCategoriesModal ? require('../assets/close.png') : require('../assets/burger-menu.png')" 
-            :alt="showCategoriesModal ? 'Закрыть' : 'Категории'" 
-            class="menu-icon" 
+              :src="showCategoriesModal ? require('../assets/close.png') : require('../assets/burger-menu.png')" 
+              :alt="showCategoriesModal ? 'Закрыть' : 'Категории'" 
+              class="menu-icon" 
             />
           </div>
           {{ showCategoriesModal ? 'Закрыть' : 'Категории' }}
@@ -20,8 +20,8 @@
       </div>
 
       <div class="location-container">
-        <span>г. Москва</span>
-        <img src="../assets/map.png" alt="Локация" class="location-icon">
+        <span class="city-name">{{ truncatedCity }}</span>
+        <img src="../assets/map.png" alt="Локация" class="location-icon" />
       </div>
     </div>
 
@@ -43,7 +43,6 @@
     </div>
 
     <h1>Все товары:</h1>
-
   </div>
 </template>
 
@@ -52,11 +51,54 @@ export default {
   data() {
     return {
       showCategoriesModal: false,
+      selectedCity: 'Ваш город', // Начальный город
     };
+  },
+  mounted() {
+    // Автоматически выбираем город при загрузке компонента
+    this.autoSelectLocation();
+  },
+  computed: {
+    truncatedCity() {
+      return this.selectedCity.length > 20 
+        ? this.selectedCity.substring(0, 20) + '...' 
+        : this.selectedCity;
+    },
   },
   methods: {
     toggleCategories() {
       this.showCategoriesModal = !this.showCategoriesModal;
+    },
+    autoSelectLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          this.getLocationName(latitude, longitude);
+        }, () => {
+          // Если геолокация недоступна, устанавливаем значение по умолчанию
+          this.selectedCity = 'Ваш город'; 
+        });
+      } else {
+        this.selectedCity = 'Ваш город'; // Геолокация не поддерживается
+      }
+    },
+    getLocationName(latitude, longitude) {
+      const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.address) {
+            this.selectedCity = data.address.city || data.address.town || data.address.village || 'Неизвестный город';
+          } else {
+            this.selectedCity = 'Ваш город'; // Если город не найден
+          }
+        })
+        .catch(error => {
+          console.error('Ошибка при получении данных:', error);
+          this.selectedCity = 'Ваш город'; // Если произошла ошибка
+        });
     },
   },
 };
@@ -183,5 +225,12 @@ export default {
   right: 10px;
   font-size: 24px;
   cursor: pointer;
+}
+
+.city-name {
+  white-space: nowrap; /* Запрет переноса текста */
+  overflow: hidden; /* Скрытие переполнения */
+  text-overflow: ellipsis; /* Добавление "..." в конце текста */
+  max-width: 100px; /* Ограничение ширины */
 }
 </style>
