@@ -3,8 +3,14 @@
     <div class="search-bar-container">
       <div class="location-container">
         <button class="menu-button" @click="toggleCategories">
-          <img :src="menuIcon" alt="Категории" class="menu-icon" />
-          Категории
+          <div class="menu-icon-container">
+            <img 
+            :src="showCategoriesModal ? require('../assets/close.png') : require('../assets/burger-menu.png')" 
+            :alt="showCategoriesModal ? 'Закрыть' : 'Категории'" 
+            class="menu-icon" 
+            />
+          </div>
+          {{ showCategoriesModal ? 'Закрыть' : 'Категории' }}
         </button>
       </div>
 
@@ -36,28 +42,24 @@
       </div>
     </div>
 
-    <h1>Ваши рекомендации:</h1>
-    <div class="card-container">
-      <Card 
-        title="Набор для фотосессии №1" 
-        :price="10000" 
-        location="г. Москва, ул. Колотушкина, м. Курская, 100м" 
-      />
-      <Card 
-        title="Камера №2" 
-        :price="5000" 
-        location="г. Москва, ул. Пушкина, м. Пушкинская, 100м" 
-      />
-      <Card 
-        title="Фотоаппарат №1" 
-        :price="1000" 
-        location="г. Москва, ул. Образцова, м. Достоевская, 200м" 
-      />
-    </div>
+    <h1>Все товары:</h1>
+
   </div>
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      showCategoriesModal: false,
+    };
+  },
+  methods: {
+    toggleCategories() {
+      this.showCategoriesModal = !this.showCategoriesModal;
+    },
+  },
+};
 </script>
 
 <style>
@@ -76,6 +78,7 @@
   background-color: #f0f0f0;
   border-radius: 8px;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .menu-button {
@@ -91,10 +94,18 @@
   background-color: #f0f0f0; /* Изменение фона при наведении */
 }
 
+.menu-icon-container {
+  width: 20px; /* Одинаковая ширина контейнера */
+  height: 20px; /* Одинаковая высота контейнера */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .menu-icon {
-  width: 20px; /* Устанавливаем размер иконки */
-  height: 20px;
-  margin-right: 8px; /* Отступ между иконкой и текстом */
+  width: 100%; /* Масштабируем изображение по ширине контейнера */
+  height: 100%; /* Масштабируем изображение по высоте контейнера */
+  object-fit: contain; /* Убедимся, что изображение сохраняет пропорции */
 }
 
 .search-input-container {
@@ -173,5 +184,4 @@
   font-size: 24px;
   cursor: pointer;
 }
-
 </style>
