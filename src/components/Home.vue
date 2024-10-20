@@ -46,7 +46,7 @@
 
     <!-- Контейнер для карточек товаров -->
     <div class="card-container">
-      <div class="product-card" v-for="product in products" :key="product.id">
+      <div class="product-card" v-for="product in products" :key="product.id" @click="goToProductPage(product.id)">
         <img :src="product.image" alt="Продукт" class="product-image" />
         <h3>{{ product.name }}</h3>
         <p>Цена: {{ product.price }}₽</p>
@@ -116,6 +116,9 @@ export default {
           console.error('Ошибка при получении данных:', error);
           this.selectedCity = 'Ваш город';
         });
+    },
+    goToProductPage(productId) {
+      this.$router.push({ path: `/product/${productId}` }); // Перенаправление на страницу товара
     },
   },
 };
