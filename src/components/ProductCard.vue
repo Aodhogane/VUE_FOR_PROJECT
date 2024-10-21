@@ -17,9 +17,8 @@
     },
     methods: {
       addToCart() {
-        // Логика добавления товара в корзину
-        console.log(`Товар ${this.product.title} добавлен в корзину.`);
-      },
+        this.$emit('add-to-cart', this.product); // Передаем товар вверх по цепочке
+        },
     },
   };
   </script>

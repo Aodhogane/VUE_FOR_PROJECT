@@ -1,10 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home.vue';
-import ProductDetail from '../components/ProductDetail.vue'; // Импортируем новый компонент
+import Home from '@/components/Home.vue';
+import ProductDetail from '@/components/ProductDetail.vue';
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/product/:id', component: ProductDetail } // Новый маршрут для страницы товара
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
+  },
+  {
+    path: '/product/:id', // Динамический маршрут для товаров
+    name: 'ProductDetail',
+    component: ProductDetail,
+    props: true, // Позволяет передавать параметры как свойства
+  },
 ];
 
 const router = createRouter({

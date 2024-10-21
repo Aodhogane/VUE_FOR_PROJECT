@@ -46,18 +46,23 @@
 
     <!-- Контейнер для карточек товаров -->
     <div class="card-container">
-      <div class="product-card" v-for="product in products" :key="product.id" @click="goToProductPage(product.id)">
-        <img :src="product.image" alt="Продукт" class="product-image" />
-        <h3>{{ product.name }}</h3>
-        <p>Цена: {{ product.price }}₽</p>
-        <button class="add-to-cart-button">Добавить в корзину</button>
-      </div>
+      <product-card
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+        @add-to-cart="handleAddToCart"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import ProductCard from './ProductCard.vue';
+
 export default {
+  components: {
+    ProductCard,
+  },
   data() {
     return {
       showCategoriesModal: false,
@@ -71,6 +76,7 @@ export default {
         { id: 6, name: 'Камера 6', price: 5500, image: require('../assets/camera1.png') },
         // Добавьте больше продуктов по мере необходимости
       ],
+      cart: [], // Состояние для корзины
     };
   },
   mounted() {
@@ -78,8 +84,8 @@ export default {
   },
   computed: {
     truncatedCity() {
-      return this.selectedCity.length > 20 
-        ? this.selectedCity.substring(0, 20) + '...' 
+      return this.selectedCity.length > 6 
+        ? this.selectedCity.substring(0, 6) + '...' 
         : this.selectedCity;
     },
   },
@@ -117,8 +123,15 @@ export default {
           this.selectedCity = 'Ваш город';
         });
     },
+    toggleCategories() {
+      this.showCategoriesModal = !this.showCategoriesModal;
+    },
     goToProductPage(productId) {
-      this.$router.push({ path: `/product/${productId}` }); // Перенаправление на страницу товара
+      this.$router.push({ path: `/product/${productId}` });
+    },
+    handleAddToCart(product) {
+      this.cart.push(product); // Добавляем товар в корзину
+      console.log(`${product.name} добавлен в корзину.`);
     },
   },
 };
