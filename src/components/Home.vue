@@ -80,6 +80,8 @@ export default {
         { id: 4, name: 'Камера 4', price: 6000, image: require('../assets/camera1.png') },
         { id: 5, name: 'Камера 5', price: 4500, image: require('../assets/camera1.png') },
         { id: 6, name: 'Камера 6', price: 5500, image: require('../assets/camera1.png') },
+        { id: 7, name: 'Камера 7', price: 5500, image: require('../assets/camera1.png') },
+        { id: 8, name: 'Камера 8', price: 5500, image: require('../assets/camera1.png') },
         // Добавьте больше продуктов по мере необходимости
       ],
       cart: [], // Состояние для корзины
