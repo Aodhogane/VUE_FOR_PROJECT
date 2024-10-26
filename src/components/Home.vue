@@ -16,7 +16,12 @@
 
       <div class="search-input-container">
         <img src="../assets/discover.png" alt="Поиск" class="search-icon">
-        <input type="text" placeholder="Поиск по объявлениям" class="search-input">
+        <input 
+          type="text" 
+          placeholder="Поиск по объявлениям" 
+          class="search-input" 
+          v-model="searchQuery"
+        />
       </div>
 
       <div class="location-container">
@@ -47,7 +52,7 @@
     <!-- Контейнер для карточек товаров -->
     <div class="card-container">
       <product-card
-        v-for="product in products"
+        v-for="product in filteredProducts"
         :key="product.id"
         :product="product"
         @add-to-cart="handleAddToCart"
@@ -66,6 +71,7 @@ export default {
   data() {
     return {
       showCategoriesModal: false,
+      searchQuery: '', // Новое поле для строки поиска
       selectedCity: 'Ваш город', // Начальный город
       products: [ // Пример списка продуктов
         { id: 1, name: 'Камера 1', price: 5000, image: require('../assets/camera1.png') },
@@ -87,6 +93,12 @@ export default {
       return this.selectedCity.length > 6 
         ? this.selectedCity.substring(0, 6) + '...' 
         : this.selectedCity;
+    },
+    filteredProducts() {
+      // Фильтруем продукты на основе строки поиска
+      return this.products.filter(product =>
+        product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
     },
   },
   methods: {
@@ -136,6 +148,7 @@ export default {
   },
 };
 </script>
+
 
 <style>
 .card-container {
