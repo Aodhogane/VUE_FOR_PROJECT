@@ -153,8 +153,10 @@ export default {
 <style>
 .card-container {
   display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
 }
 
 /* Стили для панели поиска и категорий */
