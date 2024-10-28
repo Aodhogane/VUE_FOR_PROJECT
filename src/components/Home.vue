@@ -47,6 +47,20 @@
       </div>
     </div>
 
+    <div class="filter-container">
+      <label for="category">Категория:</label>
+      <select id="category" v-model="selectedCategory">
+        <option value="">Все</option>
+        <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+      </select>
+
+      <label for="min-price">Цена от:</label>
+      <input id="min-price" type="number" v-model.number="priceRange.min" />
+
+      <label for="max-price">до:</label>
+      <input id="max-price" type="number" v-model.number="priceRange.max" />
+    </div>
+
     <h1>Все товары:</h1>
 
     <!-- Контейнер для карточек товаров -->
@@ -74,17 +88,19 @@ export default {
       searchQuery: '', // Новое поле для строки поиска
       selectedCity: 'Ваш город', // Начальный город
       products: [ // Пример списка продуктов
-        { id: 1, name: 'Камера 1', price: 5000, image: require('../assets/camera1.png') },
-        { id: 2, name: 'Камера 2', price: 7000, image: require('../assets/camera1.png') },
-        { id: 3, name: 'Камера 3', price: 8000, image: require('../assets/camera1.png') },
-        { id: 4, name: 'Камера 4', price: 6000, image: require('../assets/camera1.png') },
-        { id: 5, name: 'Камера 5', price: 4500, image: require('../assets/camera1.png') },
-        { id: 6, name: 'Камера 6', price: 5500, image: require('../assets/camera1.png') },
-        { id: 7, name: 'Камера 7', price: 5500, image: require('../assets/camera1.png') },
-        { id: 8, name: 'Камера 8', price: 5500, image: require('../assets/camera1.png') },
+        { id: 1, name: 'Камера 1', price: 5000, category: 'Камеры', image: require('../assets/camera1.png') },
+        { id: 2, name: 'Объектив', price: 7000, category: 'Объективы', image: require('../assets/camera1.png') },
+        { id: 3, name: 'Провода', price: 8000, category: 'Провода', image: require('../assets/camera1.png') },
+        { id: 4, name: 'Наборы', price: 6000, category: 'Наборы', image: require('../assets/camera1.png') },
+        { id: 5, name: 'Лампы', price: 4500, category: 'Лампы', image: require('../assets/camera1.png') },
+        { id: 6, name: 'Батарейки', price: 5500, category: 'Батарейки', image: require('../assets/camera1.png') },
+        { id: 7, name: 'Фотобоксы', price: 5500, category: 'Фотобоксы', image: require('../assets/camera1.png') },
+        { id: 8, name: 'Камера 8', price: 5500, category: 'Камеры', image: require('../assets/camera1.png') },
         // Добавьте больше продуктов по мере необходимости
       ],
-      cart: [], // Состояние для корзины
+      selectedCategory: null, // Для выбранной категории
+      priceRange: { min: 0, max: 10000 }, // Начальный диапазон цен
+      categories: ['Камеры', 'Объективы', 'Провода', 'Наборы', 'Лампы', 'Батарейки', 'Фотобоксы'], // Список категорий
     };
   },
   mounted() {
@@ -97,11 +113,17 @@ export default {
         : this.selectedCity;
     },
     filteredProducts() {
-      // Фильтруем продукты на основе строки поиска
-      return this.products.filter(product =>
+    return this.products
+      .filter(product => 
+        // Фильтруем по категории, если категория выбрана
+        (!this.selectedCategory || product.category === this.selectedCategory) &&
+        // Фильтруем по диапазону цен
+        product.price >= this.priceRange.min && 
+        product.price <= this.priceRange.max &&
+        // Фильтруем по строке поиска
         product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
-    },
+  },
   },
   methods: {
     toggleCategories() {
