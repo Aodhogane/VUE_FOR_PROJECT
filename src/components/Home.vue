@@ -84,9 +84,9 @@ export default {
   },
   data() {
     return {
-      showCategoriesModal: false,
-      searchQuery: '', // Новое поле для строки поиска
-      selectedCity: 'Ваш город', // Начальный город
+      showCategoriesModal: false, // Статус отображения модального окна категорий
+      searchQuery: '', // Поле для строки поиска
+      selectedCity: 'Ваш город', // Поле для хранения выбранного города
       products: [ // Пример списка продуктов
         { id: 1, name: 'Камера 1', price: 5000, category: 'Камеры', image: require('../assets/camera1.png') },
         { id: 2, name: 'Объектив', price: 7000, category: 'Объективы', image: require('../assets/camera1.png') },
@@ -98,51 +98,53 @@ export default {
         { id: 8, name: 'Камера 8', price: 5500, category: 'Камеры', image: require('../assets/camera1.png') },
         // Добавьте больше продуктов по мере необходимости
       ],
-      selectedCategory: null, // Для выбранной категории
-      priceRange: { min: 0, max: 10000 }, // Начальный диапазон цен
-      categories: ['Камеры', 'Объективы', 'Провода', 'Наборы', 'Лампы', 'Батарейки', 'Фотобоксы'], // Список категорий
+      selectedCategory: null, // Выбранная категория для фильтрации
+      priceRange: { min: 0, max: 10000 }, // Начальный диапазон цен для фильтрации
+      categories: ['Камеры', 'Объективы', 'Провода', 'Наборы', 'Лампы', 'Батарейки', 'Фотобоксы'], // Список доступных категорий
     };
   },
   mounted() {
-    this.autoSelectLocation();
+    this.autoSelectLocation(); // Автоматический выбор местоположения при загрузке компонента
   },
   computed: {
     truncatedCity() {
+      // Возвращает обрезанное название города, если оно длиннее 6 символов
       return this.selectedCity.length > 6 
         ? this.selectedCity.substring(0, 6) + '...' 
         : this.selectedCity;
     },
     filteredProducts() {
-    return this.products
-      .filter(product => 
-        // Фильтруем по категории, если категория выбрана
-        (!this.selectedCategory || product.category === this.selectedCategory) &&
-        // Фильтруем по диапазону цен
-        product.price >= this.priceRange.min && 
-        product.price <= this.priceRange.max &&
-        // Фильтруем по строке поиска
-        product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-  },
+      // Фильтрация продуктов по выбранной категории, диапазону цен и строке поиска
+      return this.products
+        .filter(product => 
+          (!this.selectedCategory || product.category === this.selectedCategory) &&
+          product.price >= this.priceRange.min && 
+          product.price <= this.priceRange.max &&
+          product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+    },
   },
   methods: {
     toggleCategories() {
+      // Переключение отображения модального окна категорий
       this.showCategoriesModal = !this.showCategoriesModal;
     },
     autoSelectLocation() {
+      // Определяет геолокацию пользователя для автозаполнения города
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           this.getLocationName(latitude, longitude);
         }, () => {
-          this.selectedCity = 'Ваш город'; 
+          this.selectedCity = 'Ваш город'; // Устанавливает стандартный город при ошибке
         });
       } else {
-        this.selectedCity = 'Ваш город'; 
+        this.selectedCity = 'Ваш город'; // Устанавливает стандартный город, если геолокация недоступна
       }
     },
     getLocationName(latitude, longitude) {
+      // Получает название города по координатам
       const url = `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`;
 
       fetch(url)
@@ -159,18 +161,18 @@ export default {
           this.selectedCity = 'Ваш город';
         });
     },
-    toggleCategories() {
-      this.showCategoriesModal = !this.showCategoriesModal;
-    },
     goToProductPage(productId) {
+      // Перенаправляет пользователя на страницу выбранного продукта
       this.$router.push({ path: `/product/${productId}` });
     },
     handleAddToCart(product) {
-      this.cart.push(product); // Добавляем товар в корзину
+      // Добавляет товар в корзину и выводит сообщение в консоль
+      this.cart.push(product);
       console.log(`${product.name} добавлен в корзину.`);
     },
   },
 };
+
 </script>
 
 
