@@ -16,7 +16,6 @@
         <router-link to="/message">
           <img src="./assets/message.png" alt="Сообщение" class="image" />
         </router-link>
-        <router-link to="/tovar">Разместить товар</router-link>
         <router-link to="/account">
           <img src="./assets/account-svgrepo-com.png" alt="Аккаунт" class="image" />
         </router-link>

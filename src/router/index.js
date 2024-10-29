@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../components/Home.vue';
 import ProductDetail from '../components/ProductCard.vue';
+import AddProduct from '../components/AddProduct.vue';
 
 const routes = [
   {
@@ -14,6 +15,12 @@ const routes = [
     component: ProductDetail,
     props: true, // Позволяет передавать параметры как свойства
   },
+  {
+    path: '/tovar', // Динамический маршрут для товаров
+    name: 'AddProduct',
+    component: AddProduct,
+  },
+
 ];
 
 const router = createRouter({

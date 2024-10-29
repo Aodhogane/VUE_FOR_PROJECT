@@ -48,6 +48,7 @@
     </div>
 
     <div class="filter-container">
+      <h2>Фильтрация</h2>
       <label for="category">Категория:</label>
       <select id="category" v-model="selectedCategory">
         <option value="">Все</option>
@@ -60,8 +61,9 @@
       <label for="max-price">до:</label>
       <input id="max-price" type="number" v-model.number="priceRange.max" />
     </div>
-
     <h1>Все товары:</h1>
+
+    <add-product @add-product="addProduct"></add-product>
 
     <!-- Контейнер для карточек товаров -->
     <div class="card-container">
@@ -77,10 +79,12 @@
 
 <script>
 import ProductCard from './ProductCard.vue';
+import AddProduct from './AddProduct.vue';
 
 export default {
   components: {
     ProductCard,
+    AddProduct,
   },
   data() {
     return {
@@ -161,18 +165,11 @@ export default {
           this.selectedCity = 'Ваш город';
         });
     },
-    goToProductPage(productId) {
-      // Перенаправляет пользователя на страницу выбранного продукта
-      this.$router.push({ path: `/product/${productId}` });
-    },
-    handleAddToCart(product) {
-      // Добавляет товар в корзину и выводит сообщение в консоль
-      this.cart.push(product);
-      console.log(`${product.name} добавлен в корзину.`);
-    },
+    addProduct(newProduct){
+      this.products.push(newProduct);
+    }
   },
 };
-
 </script>
 
 
